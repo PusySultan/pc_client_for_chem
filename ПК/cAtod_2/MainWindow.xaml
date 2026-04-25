@@ -1,0 +1,393 @@
+﻿<Window x:Class="cAtod_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cAtod_2" 
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        mc:Ignorable="d"
+        
+        WindowState="Maximized"
+                
+        Title="MainWindow" 
+        MinHeight="660"
+        MinWidth="1177">
+
+    <Grid Background="#FF607D8B" 
+          Margin="0,0,0,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="295*"/>
+            <ColumnDefinition Width="592*"/>
+            <ColumnDefinition Width="290*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="2" 
+                  Header="Подключение" 
+                  Margin="18,10,10,175">
+
+            <Grid Height="422">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="DostUstr" 
+                Margin="10,5,10,0"
+                TextWrapping="Wrap" 
+                Height="30"         
+                Text="Доступные усройства" 
+                TextAlignment="Center" 
+                Background="{x:Null}" 
+                IsEnabled="False" VerticalAlignment="Top" FontSize="14"/>
+
+                <ListBox x:Name="listB" 
+                d:ItemsSource="{d:SampleData ItemCount=5}" 
+                Margin="10,42,10,0"
+                Background="{x:Null}" 
+                         Height="151" 
+                        
+                         VerticalAlignment="Top" SelectionChanged="listB_SelectionChanged"   />
+
+                <TextBox x:Name="processTXT" 
+                Margin="10,197,10,0" 
+                TextWrapping="Wrap" 
+                AutomationProperties.HelpText="Processing" 
+                TextAlignment="Center" 
+                Background="{x:Null}" 
+                IsReadOnly="True" 
+                Height="45"
+                VerticalAlignment="Top"/>
+
+                <Button 
+                Content="Получить данные" 
+                Margin="10,358,10,0" 
+                Click="Button_Click_1" 
+                RenderTransformOrigin="0.495,1.447" 
+                Height="45" 
+                VerticalAlignment="Top" Background="#FFCFD8DC"/>
+
+                <Button 
+                Content="Отключить" 
+                Margin="11,304,9,0" 
+                Click="Button_Click_2"
+                Height="45" 
+                VerticalAlignment="Top" Background="#FFCFD8DC"/>
+
+                <Button Content="Поиск устройств"
+                Margin="10,254,10,0" 
+                Click="Button_Click" 
+                Height="45" 
+                RenderTransformOrigin="1,1" VerticalAlignment="Top" Background="#FFCFD8DC"/>
+
+            </Grid>
+        </GroupBox>
+
+        <TabControl 
+                    Margin="6,10,0,4" 
+                    Background="#FFCFD8DC" Grid.Column="1">
+
+            <TabItem Header="Измерение">
+
+                <Grid 
+                       Width="596" 
+                       Margin="0,0,0,0"
+                       HorizontalAlignment="Center"
+                       Height="602" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="271*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="301*"/>
+                    </Grid.RowDefinitions>
+
+                    <ScottPlot:WpfPlot 
+                        x:Name="ChartUIP"
+                        Margin="19,40,317,11"
+                    />
+
+                    <ScottPlot:WpfPlot 
+                        x:Name="ChartPWM" 
+                        Margin="317,40,19,11" />
+
+                    <ScottPlot:WpfPlot 
+                        x:Name="ChartReact" 
+                        Grid.Row="2" 
+                        Margin="19,23,317,58" />
+
+                    <ScottPlot:WpfPlot 
+                     x:Name="ChartVodorod"
+                     Grid.Row="2"   
+                     Margin="317,23,19,58"/>
+
+
+
+
+                    <TextBox x:Name="Info_chart_UIP" 
+                      HorizontalAlignment="Left"
+                      TextWrapping="Wrap" 
+                      Text="Выходные характеристики" 
+                      VerticalAlignment="Top" 
+                      Width="162"
+                      Background="{x:Null}" Margin="68,17,0,0" BorderBrush="{x:Null}" IsEnabled="False" />
+
+                    <TextBox HorizontalAlignment="Left" 
+                      Margin="409,17,0,0" 
+                      TextWrapping="Wrap" 
+                      Text="Скважность ШИМ" 
+                      VerticalAlignment="Top" 
+                      Width="120"
+                      Background="{x:Null}" BorderBrush="{x:Null}" IsUndoEnabled="False" IsEnabled="False" />
+
+                    <TextBox x:Name="Info_chart_React"
+                      TextWrapping="Wrap" 
+                      Text="Характеристики реактора" 
+                      Background="{x:Null}" 
+                      Margin="67,0,365,283" Grid.Row="2" BorderBrush="{x:Null}" IsEnabled="False" />
+
+                    <TextBox x:Name="Info_chart_Vodorod"
+                      TextWrapping="Wrap" 
+                      Text="Характеристики водородного элемента"
+                      Background="{x:Null}" 
+                      Height="18" 
+                      VerticalAlignment="Top" 
+                      TextAlignment="Center" Margin="303,0,5,0" Grid.Row="2" BorderBrush="{x:Null}" IsEnabled="False" />
+
+                    <CheckBox x:Name="Check_PWM" 
+                              Content="Is Enable"
+                              HorizontalAlignment="Left" 
+                              Margin="342,260,0,26" 
+                              Width="206" Grid.RowSpan="2"  />
+                    <CheckBox x:Name="Check_UIP" 
+                        Content="Is Enable"
+                        HorizontalAlignment="Left" 
+                        Margin="44,260,0,26" 
+                        Width="206" Grid.RowSpan="2" 
+                       />
+                    <CheckBox x:Name="Check_React" 
+                        Content="Is Enable"
+                        HorizontalAlignment="Left" 
+                        Margin="44,248,0,38" 
+                              Width="206" 
+                              Grid.Row="2" />
+                    <CheckBox x:Name="Check_Vodorod" 
+                            Content="Is Enable"
+                            HorizontalAlignment="Left" 
+                            Margin="342,248,0,37"
+                            Width="206" 
+                            Grid.Row="2" />
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Управление">
+
+                <Grid Background="#FFCFD8DC" 
+                      Height="593">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TabControl x:Name="tabeMode" Margin="-3,-14,0,114" Background="#FFCFD8DC">
+
+                        <TabItem Header="Импульсный режим">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <ScottPlot:WpfPlot 
+                                 x:Name="ImpulseVisualisation"
+                                 Margin="19,24,19,160"
+                                 />
+
+                                <GroupBox Header="GroupBox" Margin="5,309,-4,3">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock  Margin="21,10,396,97" TextWrapping="Wrap" TextAlignment="Center"><Run Language="ru-ru" Text="Время паузы"/></TextBlock>
+                                        <TextBox x:Name="pauseTimeInput" Margin="21,45,393,65" Width="150" TextWrapping="Wrap" TextAlignment="Center" Background="#FFCFD8DC"/>
+                                        <TextBox x:Name="jobTimeInput" Margin="206,44,208,66"  Width="150" TextWrapping="Wrap" TextAlignment="Center" Background="#FFCFD8DC"/>
+                                        <TextBox x:Name="boreholeInput" Margin="392,45,22,63"  Width="150" TextWrapping="Wrap" TextAlignment="Center" Background="#FFCFD8DC"/>
+                                        <TextBlock  Margin="205,9,212,98" TextWrapping="Wrap" TextAlignment="Center"><Run Text="Время "/><Run Language="ru-ru" Text="работы"/></TextBlock>
+                                        <TextBlock  Margin="393,9,24,98" TextWrapping="Wrap" TextAlignment="Center"><Run Language="ru-ru" Text="Скважность"/></TextBlock>
+                                        <Button x:Name="previewImpulse" Content="Предпросмотр" Margin="200,83,201,12" Background="{x:Null}" Click="previewImpulse_Click"/>
+                                    </Grid>
+
+                                </GroupBox>
+
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Линейный режим">
+
+                            <Grid Background="#FFCFD8DC">
+
+                                <ScottPlot:WpfPlot 
+                                 x:Name="LineVisualisationMode" 
+                                 Margin="19,24,19,133"
+                                />
+
+                                <TextBox x:Name="BoreholeInput" 
+                                    Margin="200,375,200,62" 
+                                         TextWrapping="Wrap" 
+                                         Background="{x:Null}" 
+                                         HorizontalContentAlignment="Center" 
+                                         VerticalContentAlignment="Center" 
+                                 />
+                                <Button x:Name="previewBut" Content="Предпросмотр"
+                                    Margin="185,424,185,9" 
+                                    RenderTransformOrigin="1,1" Background="#FFCFD8DC" Click="previewBut_Click"/>
+
+                                <TextBlock Margin="200,346,201,103" TextWrapping="Wrap"><Run Language="ru-ru" Text="Введите значение скажности, %"/></TextBlock>
+
+                            </Grid>
+                        </TabItem>
+
+
+                    </TabControl>
+                    <Button x:Name="SendCommand" Content="Send" Margin="180,534,178,20" Background="#FF607D8B" Click="SendCommand_Click"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+        <GroupBox 
+            Header="GroupBox" 
+            Margin="5,10,7,288">
+
+            <Grid>
+                <TextBox 
+                    Margin="74,26,76,0" 
+                    TextWrapping="Wrap" 
+                    Text="Температура чипа" 
+                    VerticalAlignment="Top"
+                    Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False"/>
+                <TextBox x:Name="CPU_temp" 
+                    Margin="36,49,36,0" 
+                    TextWrapping="Wrap" 
+                    TextAlignment="Center"
+                    Text="33.5" 
+                    VerticalAlignment="Top" 
+                    Height="50" FontSize="25"
+                    Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False"/>
+                <TextBox 
+                    Margin="72,124,73,0" 
+                    TextWrapping="Wrap" 
+                    Text="Состояние куллера" 
+                    VerticalAlignment="Top"
+                    Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False" Height="22"/>
+                <TextBox x:Name="Kuler_status" 
+                    Margin="36,144,36,0" 
+                    TextWrapping="Wrap" 
+                    TextAlignment="Center"
+                    Text="ВКЛ" 
+                    VerticalAlignment="Top" 
+                    Height="50" FontSize="25"
+                    Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False" RenderTransformOrigin="0.506,0.592"/>
+                <TextBox 
+                    Margin="102,225,101,0" 
+                    TextWrapping="Wrap" 
+                    Text="Статус" 
+                    VerticalAlignment="Top"
+                    Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False" TextAlignment="Center" Height="21"/>
+                <TextBox x:Name="Status" 
+                    Margin="36,254,36,0" 
+                    TextWrapping="Wrap" 
+                    TextAlignment="Center"
+                    Text="ВКЛ" 
+                    VerticalAlignment="Top" 
+                    Height="50" FontSize="25"
+                    Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False" RenderTransformOrigin="0.506,0.592"/>
+                <Separator Margin="0,103,5,0" VerticalAlignment="Top" Height="0" HorizontalAlignment="Right" Width="217"/>
+                <Separator Margin="52,92,52,0" VerticalAlignment="Top" Height="15" RenderTransformOrigin="0.5,0.5" Background="White">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <Separator Margin="51,200,53,0" VerticalAlignment="Top" Height="15" RenderTransformOrigin="0.5,0.5" Background="White">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <Separator Margin="51,302,53,0" VerticalAlignment="Top" Height="15" RenderTransformOrigin="0.5,0.5" Background="White">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="2" 
+                  Header="Работа с графиками" 
+                  Margin="18,0,10,14" 
+                  Height="154" 
+                  VerticalAlignment="Bottom">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="61*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="clearPlot_but" 
+                    Content="Очистить графики"
+                    Margin="9,13,11,0" 
+                    Height="45" 
+                    Width="230"    
+                    RenderTransformOrigin="0.297,0.568" 
+                    VerticalAlignment="Top" Click="clearPlot_but_Click" Background="#FFCFD8DC"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Экспорт данных" Margin="2,386,4,12">
+            <Grid Margin="3,0,-1,0" Height="196">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="expEXCEL" 
+                    Content="Экспорт данных в EXCEL"
+                    Margin="7,3,8,0" 
+                    Height="45"
+                    RenderTransformOrigin="0.297,0.568" 
+                    VerticalAlignment="Top" 
+                    Click="expEXCEL_Click" Background="#FFCFD8DC"/>
+                <CheckBox x:Name="onUIPch" Content="Включить в отчет выходные характеристики" Margin="1,74,-3,0" VerticalAlignment="Top" Height="15" Grid.ColumnSpan="2" IsChecked="True"/>
+                <CheckBox x:Name="onPWMch" Content="Включить в отчет скважность ШИМ сигнала" Margin="2,93,1,0" VerticalAlignment="Top" Height="15" IsChecked="True"/>
+                <CheckBox x:Name="onDuitReactch" Content="Включить в отчет давление в реакторе" Margin="2,114,4,0" VerticalAlignment="Top" Height="15" IsChecked="True"/>
+                <CheckBox x:Name="onTempReactch" Content="Включить в отчет температуру в реакторе" Margin="2,135,8,0" VerticalAlignment="Top" Height="15" IsChecked="True"/>
+                <CheckBox x:Name="onDuitVodorodch" Content="Включить в отчет давление в. элемента" Margin="2,156,8,0" VerticalAlignment="Top" Height="15" IsChecked="True"/>
+                <CheckBox x:Name="onTempVodorodch" Content="Включить в отчет температуру в в. элементе" Margin="2,175,8,0" VerticalAlignment="Top" Height="15" IsChecked="True"/>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
